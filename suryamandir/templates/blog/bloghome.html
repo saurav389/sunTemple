@@ -1,0 +1,54 @@
+{% extends 'home.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+      <!-- Blog Entries Column -->
+      
+       {% block blog %}
+          
+          
+          
+          <div class="col-md-8 mt-3 left">
+            {% for object in object_list %}
+              <div class="card mb-4 ">
+            {% if object.image %}
+              <a href="{{ object.get_absolute_url }}">
+                      <img class="card-img-top" src="{{object.image.url}}" alt="Card image cap">
+              </a>
+            {% endif %}
+          <div class="card-body">
+            <h2 class="card-title">{{object.title}}</h2>
+            <p class="card-text">{{object.contain|safe|truncatewords:30}}</p>
+            <a href="{{object.get_absolute_url}}" class="btn btn-primary">Read More &rarr;</a>
+          </div>
+          <div class="card-footer text-muted">
+            {{object.publish_date}} by
+            <a href="#">{{object.user}}</a>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <!-- Sidebar Widgets Column -->
+              <div class="col-md-4 float-right " style="padding-top: 80px; font-size: 15px; font-family: Roboto, sans-serif;">
+              <div class="card my-4">
+                      <h5 class="card-header">Our Works</h5>
+                  <div class="card-body">
+                      
+                        {% for object in object_list %}
+                          <div class="title"><a href="{{object.get_absolute_url}}">{{object.title}}</a></div>
+                        {% endfor %}
+                  </div>
+              </div>
+              </div>
+          </div>
+          
+     
+       {% endblock blog %}
+   
+ 
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<div class="container" style="padding: 20px; margin: 70px; justify-content: space-around; ">
+  <div style=" width: 90%;float:right;">
+    <h1 style="background-color: darkblue; padding: 20px; text-align: center; color: white;"><a href="{% url 'message' %}"><span class="fa fa-arrow-circle-left"></span></a>MESSAGE</h1>
+<div class="dropdown" style="margin-bottom: 20px;">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    From: 
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#"><strong>Name: </strong>{{objects.Name}}</a>
+    <a class="dropdown-item" href="#"><strong>Email: </strong>{{objects.Email}}</a>
+    <a class="dropdown-item" href="#"><strong>Number: </strong>{{objects.Number}}</a>
+  </div>
+</div>
+    <p style="font-size:1.5rem; background-color: grey; padding: 15px; height: 60vh;">{{message.Query}}</p>
+
+</div>
+</div>
+
+
+{% endblock %}

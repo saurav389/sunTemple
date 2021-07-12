@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+{% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{message.tags}}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {%endif%}
+</div>
+
+    <!-- Add class 'active' to progress -->
+        <div class="row d-flex justify-content-center">
+            <div class="col-12">
+                <ul id="progressbar" class="text-center">
+                    <li class="active step0"></li>
+                    <li class="active step0"></li>
+                    <li class="active step0"></li>
+                    <li class="step0"></li>
+                </ul>
+            </div>
+        </div>
+
+
+<div class="container">
+  <h2>Profile</h2>
+  <p><strong>{{user.username|capfirst}}</strong> Please complete complete the profile <strong>Carefully !</strong></p>
+    <div class="d-flex justify-content-center h-100">
+      <div class="image_outer_container">
+        <div class="green_icon"></div>
+        <div class="image_inner_container">
+          {% if user.Profile.image %}
+            <img src="{{user.Profile.image.url}}">
+          {% else %}
+            <img src="http://triumphresearch.com/en/wp-content/uploads/website-images/RAS.png">
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <form action="{% url 'setimage' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+          {{form|crispy}}
+          <button type="submit" class="btn btn-success" style="float: right;"> Update</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+{% endblock %}

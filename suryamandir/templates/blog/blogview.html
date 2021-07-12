@@ -1,0 +1,33 @@
+{% extends 'blog/bloghome.html'%}
+{% block blog %}
+ <!-- Blog Post -->
+
+          	{% for object in object_list%}
+            <div class="container">
+            <div class="card mb-4">
+              {% if object.image %}
+                <a href="{{ object.get_absolute_url }}">
+                        <img class="card-img-top" src="{{object.image.url}}" alt="Card image cap">
+                </a>
+              {% endif %}
+              {% if value is True %}
+              <div class="card-body">
+                  <a href='{{object.get_edit_url}}' style="float: right;">
+                  <i class="fa fa-edit fa-2x"></i></a>
+                {% endif %}
+
+	            <h2 class="card-title">{{object.title}}</h2>
+              <p class="card-text">{{object.content|safe}}</p>
+
+          </div>
+          <div class="card-footer text-muted">
+
+            {{object.publish_date}} by
+            <a href="#">{{object.user}}</a>
+          </div>
+        </div>
+      </div>
+
+            {%endfor%}
+
+{% endblock blog %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{message.tags}}">
+      {{ message }}
+    </div>
+  {% endfor %}
+{%endif%}
+<div class="container" style="padding-top:90px;">
+    <div class="fb-profile">
+        <img align="left" class="fb-image-lg" src="http://getwallpapers.com/wallpaper/full/d/f/a/958712-django-unchained-wallpapers-1920x1080-large-resolution.jpg" alt="Profile" width="718" height="404">
+        <img align="left" class="fb-image-profile" src="{{user.Profile.image.url}}" alt="Profile">
+        <a href="{% url 'setimage' %}"><i class="fas fa-camera fa-2x"></i></a>
+        <div class="fb-profile-text">
+            <div class="card">
+                <div class="card-header bg-primary"><h1> {{user.username|capfirst}}</h1></div>
+                <div class="card-body">
+                    <div class="row">
+      <!-- Blog Entries Column -->
+
+
+
+          {% for object in object_list %}
+          <div class="container">
+          <div class="col-md-8">
+
+              <div class="card mb-4 ">
+            {% if object.image %}
+              <a href="{{ object.get_absolute_url }}">
+                      <img class="card-img-top" src="{{object.image.url}}" alt="Card image cap">
+              </a>
+            {% endif %}
+          <div class="card-body">
+            <h2 class="card-title">{{object.title}}</h2>
+            <p class="card-text">{{object.contain|safe|truncatewords:30}}</p>
+            <a href="{{object.get_absolute_url}}" class="btn btn-primary">Read More &rarr;</a>
+          </div>
+          <div class="card-footer text-muted">
+            Posted on January 1, 2017 by
+            <a href="#">Start Bootstrap</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+
+
+                </div>
+
+        </div>
+    </div>
+</div>
+</div>
+<!-- /container -->
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container" style="padding: 20px; margin: 70px; justify-content: space-around; ">
+  <h1><a href="{% url 'home' %}"><span class="fa fa-arrow-circle-left"></span></a>Notification:</h1>
+  {% for objects in notification %}
+    <p id="contactmessage" style="font-size:1rem; background-color: grey; padding: 15px;">{% if objects.Status is False %}<span style="background-color:lightsalmon; width: 45px;padding: 10px; border-radius: 50%; margin-right: 10px">New</span>{% endif %}<a href="{{objects.get_notice_url}}" style="text-decoration: none; text-decoration-style: none; color: ghostwhite;">{{objects.notification|truncatewords:10}}....<strong style="float:right;"> Dated:- {{objects.updated}} </strong> </a></p>
+  {% endfor %}
+</div>
+
+{% endif %}
+{% endblock %}

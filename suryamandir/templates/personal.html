@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{message.tags}}">
+      {{ message }}
+    </div>
+  {% endfor %}
+{%endif%}
+</div>
+
+
+         <!-- Add class 'active' to progress -->
+        <div class="row d-flex justify-content-center">
+            <div class="col-12">
+                <ul id="progressbar" class="text-center">
+                    <li class="step0"></li>
+                    <li class="step0"></li>
+                    <li class="step0"></li>
+                    <li class="step0"></li>
+                </ul>
+            </div>
+        </div>
+
+<div class="container">
+  <h2>Profile</h2>
+  <p><strong>{{user.username|capfirst}}</strong> Please complete the Personal details <strong>Carefully !</strong></p>
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header">
+        <a class="card-link" data-toggle="collapse" href="#collapseOne">
+          Personal Details
+        </a>
+      </div>
+      <div id="collapseOne" class="collapse show" data-parent="#accordion">
+        <div class="card-body">
+        	<form action="{% url 'personal' %}" method="POST">{% csrf_token %}
+    				<div class="row">
+      				<div class="col-md-4">
+      					<div class="form-group">
+      					  {{form.FirstName|as_crispy_field}}
+      					</div>
+      				</div>
+      				<div class="col-md-4">
+      					<div class="form-group">
+      						{{form.LastName|as_crispy_field}}
+      					</div>
+      				</div>
+      			</div>
+    			 <div class="row">
+    				<div class="col-md-4">
+    					<div class="form-group">
+    						{{form.Father|as_crispy_field}}
+    					</div>
+    				</div>
+    				<div class="col-md-4">
+    					<div class="form-group">
+    					  {{form.Gender|as_crispy_field}}
+    					</div>
+    				</div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                {{form.Dob|as_crispy_field}}<br>
+
+              </div>
+            </div>
+          </div>
+      <button type="submit" class="btn btn-success" style="float: right;"> Update</button>
+			</form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

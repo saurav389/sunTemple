@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='row'>
+    <div class='col-12 col-8 mx-auto'>
+                {% if query %}
+
+                     <p class='lead'>You searched for {{ query }}</p>
+                {% else %}
+
+                <form class="form-inline my-2 my-lg-0" action='/search/'>
+                  <input class="form-control mr-sm-2" type="search" name='q' placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+
+
+                {% endif %}
+
+
+                {% for blog_item in blog_list %}
+
+                      <div class="container">
+				          <div class="col-md-8">
+				            
+				              <div class="card mb-4 ">
+				            {% if blog_item.image %}
+				              <a href="{{ blog_item.get_absolute_url }}">
+				                      <img class="card-img-top" src="{{blog_item.image.url}}" alt="Card image cap">
+				              </a>
+				            {% endif %}
+				          <div class="card-body">
+				            <h2 class="card-title">{{blog_item.title}}</h2>
+				            <p class="card-text">{{blog_item.contain|safe|truncatewords:30}}</p>
+				            <a href="{{blog_item.get_absolute_url}}" class="btn btn-primary">Read More &rarr;</a>
+				          </div>
+				          <div class="card-footer text-muted">
+				            {{blog_item.publish_date}} by
+				            <a href="#">{{blog_item.user}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+                {% endfor %}
+
+
+    </div>
+
+
+</div>
+
+{% endblock %}

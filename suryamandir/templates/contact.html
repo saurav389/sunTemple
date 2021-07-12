@@ -1,0 +1,17 @@
+{% extends "base.html"%}
+{% load crispy_forms_tags %}
+{% block content%}
+<div class="container" style="padding:50px; margin-top: 50px; width: 60%; box-shadow: 5px 10px 10px grey;">
+  <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+    <legend class="border-bottom mb-4">
+    	<i class="fas fa-phone-alt fa-3x" style="color:#ff0000">   CONTACT US</i> 
+          </legend>
+          {{ form|crispy }}
+
+      <button class="btn btn-success" type="Submit"><i class="fas fa-envelope fa-2x" ></i> Send</button>
+  
+  </form>
+</div>
+
+
+{% endblock %}

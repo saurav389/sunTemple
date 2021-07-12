@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{message.tags}}">
+      {{ message }}
+    </div>
+  {% endfor %}
+{%endif%}
+</div>
+
+
+<div class="container" >
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="card-title mb-4">
+                            <div class="d-flex justify-content-start">
+                                <div class="image-container">
+                                    <img src="{{user.Profile.image.url}}" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
+                                    <div class="middle">
+                                        <input type="button" class="btn btn-secondary" id="btnChangePicture" value="Change" />
+                                        <input type="file" style="display: none;" id="profilePicture" name="file" />
+                                    </div>
+                                </div>
+                                <div class="userData ml-3">
+                                    <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold"><a href="javascript:void(0);">{{user.username}}</a></h2>
+                                    <h6 class="d-block"><a href="javascript:void(0)">{{TotalViews}}</a> Views</h6>
+                                    <h6 class="d-block"><a href="javascript:void(0)">{{Tblog}}</a> Blog Posts</h6>
+                                </div>
+                                <div class="ml-auto">
+                                    <input type="button" class="btn btn-primary d-none" id="btnDiscard" value="Discard Changes" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="basicInfo-tab" data-toggle="tab" href="#basicInfo" role="tab" aria-controls="basicInfo" aria-selected="true">Basic Info</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="qualification-tab" data-toggle="tab" href="#qualificationServices" role="tab" aria-controls="qualificationServices" aria-selected="false">Qualification Info</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="location-tab" data-toggle="tab" href="#locationServices" role="tab" aria-controls="locationServices" aria-selected="false">Location Info</a>
+                                    </li>
+
+                                </ul>
+                                <div class="tab-content ml-1" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
+                                        
+
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Full Name</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{user.PersonalDetails.FirstName|capfirst}} {{user.PersonalDetails.LastName|capfirst}} 
+                                                <a href="{% url 'perupdate'%}"><i class="fa fa-edit fa-2x"></i> </a>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Father Name</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{user.PersonalDetails.Father|capfirst}}
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Gender</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{user.PersonalDetails.Gender|capfirst}}
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Birth Date</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{user.PersonalDetails.Dob}}
+                                            </div>
+                                        </div>
+                                        <hr />
+
+                                    </div>
+                                    <div class="tab-pane fade" id="qualificationServices" role="tabpanel" aria-labelledby="qualificationServices-tab">
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Matric</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{user.QualificationDetails.Matric|capfirst}} <a href="{% url 'qualupdate'%}"><i class="fa fa-edit fa-2x"></i> </a>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Intermediate</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{user.QualificationDetails.Inter|capfirst}}
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Graduate</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{user.QualificationDetails.Gradute|capfirst}}
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Other Sepcialization</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{user.QualificationDetails.Other|capfirst}}
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Sepecialization Done From</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{user.QualificationDetails.College|capfirst}}
+                                            </div>
+                                        </div>
+                                        <hr />
+                                    </div>
+                                    <div class="tab-pane fade" id="locationServices" role="tabpanel" aria-labelledby="locationServices-tab">
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">State</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{user.LocationDetails.State|capfirst}} <a href="{% url 'locupdate'%}"><i class="fa fa-edit fa-2x"></i> </a>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">City</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{user.LocationDetails.City|capfirst}}
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">District</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{user.LocationDetails.District|capfirst}}
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Village</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{user.LocationDetails.Village|capfirst}}
+                                            </div>
+                                        </div>
+                                        <hr />
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+{% endblock %}

@@ -1,0 +1,103 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HOME</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+  $('#increment').click(function(){
+      var width = $("#container_width");
+      var input;
+      var input = $("<input>").attr("type","text").attr("name","width[]");
+      var br = $("<br>");
+      width.append(br);
+      width.append(input);
+
+      var height = $("#container_height");
+      var input = $("<input>").attr("type","text").attr("name","height[]");
+      var br = $("<br>");
+      height.append(br);
+      height.append(input);
+      var height = $("#container_more");
+      var input = $("<input>").attr("type","text").attr("name","more[]");
+      var br = $("<br>");
+      height.append(br);
+      height.append(input);
+  });
+});
+</script>
+</head>
+<body>
+
+
+<div class="container" style="padding-top: 90px;">
+{%if msg%}
+<p class="info">{{msg}}</p>
+{%endif%}
+<form action="{% url 'payment_status' %}" method="POST" id="payment-form">{% csrf_token %}
+	<input type="text" name="email" placeholder="Email.......">
+	<input type="text" name="name" placeholder="Name">
+
+
+<script    src="https://checkout.razorpay.com/v1/checkout.js"    
+           data-key="rzp_test_qYYiCzlYVkVDVy"   
+           data-amount={{price}}   
+           data-currency="INR"    
+           data-order_id={{order_id}}
+           data-buttontext="Pay with Razorpay"    
+           data-name={{name}}   
+           data-description="Test transaction"    
+           data-image="https://www.pngitem.com/pimgs/m/218-2183244_india-clipart-temple-thailand-clipart-png-transparent-png.png"    
+           data-prefill.name={{name}}   
+           data-prefill.email={{email}}   
+           data-prefill.contact={{phone}}    
+           data-theme.color="#F37254">
+             
+           </script>
+           <input type="hidden" custom="Hidden Element" name="hidden">
+</form>
+</div>
+<div class="form-group">
+<form id="exampleForm">
+<table class="form-table">
+
+
+
+    <tr valign="top">
+        <td id="container_width">
+            <input type="text" name="width[]" placeholder="" />
+        </td>
+
+        <td id="container_height">
+            <input type="text" name="height[]" placeholder="" />
+        </td>
+<td id="container_more">
+            <input type="text" name="more[]" placeholder="" />
+        </td>
+        <td>
+            <input type="button" name="increment" id="increment" value="+" class="btn btn-primary">
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <input type="submit" value="Save settings"/>
+        </td>
+    </tr>
+
+</table>
+</form>
+</div>
+
+</body>
+</html>

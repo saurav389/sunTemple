@@ -1,0 +1,57 @@
+{% extends "base.html"%}
+{% load crispy_forms_tags %}
+{% block content%}
+<div class="container" style="margin-top: 90px; padding: 10px;" align="center">
+<h1 class="bg bg-info" style="color: white; padding: 10px;"> Surya Mandir Expenses 
+<input type="button" value="+ Add" class="btn btn-success" style="float: right; padding: 10px;" onclick="addField()"></h1>
+
+<div class="form-group" style="overflow-x:auto;">
+<form id="frm" name="frm" method="POST" action="{% url 'account' %}">{% csrf_token %}
+<table class="form-table" >
+
+
+<tr valign="top">
+	<th>Party Name</th>
+	<th>Item Name</th>
+	<th>Quantity</th>
+	<th>Rate</th>
+	<th>Amount</th>
+	<th>Date</th>
+ 
+</tr>
+
+    <tr valign="top" id="tableField">
+        <td id="container_partyname" >
+            <input type="text" name="partyname" style="margin:5px;" />
+        </td>
+
+        <td id="container_itemname">
+            <input type="text" name="itemname" style="margin:5px;" />
+        </td>
+		<td id="container_quantity">
+            <input type="text" id="quantity0" name="quantity" class="qnty" style="margin:5px;" onchange="calculate(this)" />
+        </td>
+        <td id="container_rate">
+            <input type="text" id="rate0" name="rate" class="rt" style="margin:5px;" onchange="calculate(this)" />
+        </td>
+        <td id="container_amount">
+            <input type="text" name="amount" id="amount0" class="amt" style="margin:5px;" readonly="readonly" value="" />
+        </td>
+        <td id="container_date">
+            <input type="date" name="date" style="margin:5px;"/>
+        </td>
+       
+    </tr>
+
+ 
+    
+
+</table>
+
+<input type="submit" value="Save" style="padding-right: 20px; padding-left: 20px; float: right;" class="btn btn-success" />
+</form>
+</div>
+
+</div>
+
+{% endblock %}

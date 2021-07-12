@@ -1,0 +1,107 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HOME</title>
+<link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
+
+<link href="https://fonts.googleapis.com/css?family=Roboto|Courgette|Pacifico:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-expand-sm bg-light navbar-light fixed-top">
+	<div class="navbar-header d-flex col" style="align-items: center;">
+		<a class="navbar-brand" href="{% url 'home' %}"><img src="https://www.pngitem.com/pimgs/m/218-2183244_india-clipart-temple-thailand-clipart-png-transparent-png.png" style="width: 50px;height: 50px;">SM<b>NS</b></a>
+		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle navbar-toggler ml-auto">
+			<span class="navbar-toggler-icon"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+	</div>
+	<!-- Collection of nav links, forms, and other content for toggling -->
+	<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+		<ul class="nav navbar-nav">
+			<li class="nav-item active"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+			{% if user.is_authenticated %}
+				<li class="nav-item dropdown">
+					<a data-toggle="dropdown" class="nav-link dropdown-toggle" href="#">Services <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="{% url 'pubblog' %}" class="dropdown-item">Our Works</a></li>
+						<li><a href="{% url 'new' %}" class="dropdown-item">New Works</a></li>
+						<li><a href="{% url 'typing' %}" class="dropdown-item">Hindi Typing</a></li>
+					<!--	<li><a href="#" class="dropdown-item">Employee List</a></li>
+						<li><a href="#" class="dropdown-item">Rate List</a></li> -->
+					</ul>
+				</li>
+
+				</ul>
+			<form class="navbar-form form-inline" action="/search/">
+				<div class="input-group search-box">
+					<input type="text" id="search" class="form-control" placeholder="Search by Name" type="search" name = "q">
+
+					<button type="submit" class="btn btn-success"><i class="fa fa-search" style="color: #ffff4d"></i></button>
+				</div>
+
+			</form>
+			<ul class="nav navbar-nav navbar-right ml-auto">
+				<li class="nav-item"><a href="{% url 'notice'%}" class="nav-link notifications"><i class="fas fa-bell"></i><span class="badge">{{newNotification}}</span></a></li>
+				<li class="nav-item"><a href="{% url 'message'%}" class="nav-link messages"><i class="fas fa-envelope"></i><span class="badge">{{newMessage}}</span></a></li>
+				<li class="nav-item dropdown">
+					<a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><img src="{{user.Profile.image.url}}" class="avatar" alt="Avatar"> {{user.username|capfirst}} <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="{% url 'profile' %}" class="dropdown-item"><i class="fa fa-user"></i> Profile</a></li>
+						<li><a href="{% url 'account' %}" class="dropdown-item"><i class="fa fa-book"></i> Account</a></li>
+						<li><a href="{% url 'prblog' %}" class="dropdown-item"><i class="fa fa-sliders"></i> Post</a></li>
+						<li class="divider dropdown-divider"></li>
+						<li><a href="{% url 'logout' %}" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Logout</a></li>
+					</ul>
+				</li>
+			</ul>
+		{% else %}
+			<ul class="nav navbar-nav">
+				<li class="nav-item"><a href="{% url 'pubblog' %}" class="nav-link">Our Works</a></li>
+				<li class="nav-item"><a href="{% url 'team' %}" class="nav-link">Team</a></li>
+
+				<li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
+				<li class="nav-item"><a href="{% url 'about' %}" class="nav-link">About</a></li>
+			</ul>
+			<ul class="nav navbar-nav">
+	          <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
+			  <li class="nav-item"><a href="{% url 'signup' %}" class="nav-link">Sign Up</a></li>
+			  <li class="nav-item"><a href="{% url 'donation' %}" class="btn btn-primary" style="float:right;">Donate</a></li>
+	        </ul>
+		{% endif %}
+	</div>
+</nav>
+
+
+{% block content %}
+
+
+{%endblock%}
+
+
+
+<!-- Footer -->
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static '/js/script.js' %}"></script>
+</body>
+</html>
