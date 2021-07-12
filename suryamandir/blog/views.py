@@ -6,15 +6,19 @@ from .models import BlogPost
 from .blogform import BlogPostModelForm
 
 # Create your views here.
+@login_required
 def PublicBlog(request):
 	qs = BlogPost.objects.all()
 	context = {"object_list":qs}
 	return render(request,"blog/bloghome.html",context)
+
+@login_required
 def BlogPostHome(request):
 	qs = BlogPost.objects.filter(user=request.user)
 	context={"object_list":qs}
 	return render(request,"post.html",context)
 
+@login_required
 def BlogPostView(request,slug):
 	try:
 	    qs = BlogPost.objects.filter(slug=slug,user=request.user).exists()
@@ -77,7 +81,7 @@ def BlogPostEdit(request,slug):
 	else:
 		print(postedit.user,request.user)
 		return redirect('/blog/')
-
+@login_required
 def BlogPostDelete(request,slug):
 
 	return render(request,"blog/blogdelete.html",{})

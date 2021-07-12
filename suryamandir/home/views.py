@@ -13,58 +13,101 @@ client = razorpay.Client(auth=("rzp_test_qYYiCzlYVkVDVy", "1Dkk0dcZcaDs0AKWUSbaw
 # Create your views here.
 
 
-msgcount = 0
-noticount = 0
-msg = contactus.objects.all()
-noti = notification.objects.all()
-for lookup in msg:
-    if lookup.Status is False:
-        msgcount = msgcount+1
-
-for lookup in noti:
-    if lookup.Status is False:
-        noticount = noticount+1
-
-
 stripe.api_key = "sk_test_YFmrMupANYmRGjc2ly9g99gm00rdFQBuwg"
 
 def home_view(request):
+    msgcount = 0
+    noticount = 0
+    msg = contactus.objects.all()
+    noti = notification.objects.all()
+    for lookup in msg:
+        if lookup.Status is False:
+            msgcount = msgcount+1
 
+    for lookup in noti:
+        if lookup.Status is False:
+            noticount = noticount+1
     context = {"newMessage":msgcount,
                 "newNotification":noticount,
               }
 
     return render(request,"base.html",context)
 
+@login_required
 def notice_detail(request,pk):
+    msgcount = 0
+    noticount = 0
+    msg = contactus.objects.all()
+    noti = notification.objects.all()
+    for lookup in msg:
+        if lookup.Status is False:
+            msgcount = msgcount+1
+
+    for lookup in noti:
+        if lookup.Status is False:
+            noticount = noticount+1
     notice = notification.objects.get(id=pk)
     notice.Status=True
     notice.save(update_fields=['Status'])
+
+
     context = {"notice":notice,
                 "newMessage":msgcount,
                 "newNotification":noticount,}
 
     return render(request,"notice.html",context)
+
+@login_required
 def notification_view(request):
-    
+    msgcount = 0
+    noticount = 0
+    msg = contactus.objects.all()
+    noti = notification.objects.all()
+    for lookup in msg:
+        if lookup.Status is False:
+            msgcount = msgcount+1
 
-    notiurl = "/notification"
-
+    for lookup in noti:
+        if lookup.Status is False:
+            noticount = noticount+1
     context = {"newMessage":msgcount,
                 "newNotification":noticount,
                 "notification":noti}
 
     return render(request,"notification.html",context)
 
+@login_required
 def message_view(request):
+    msgcount = 0
+    noticount = 0
+    msg = contactus.objects.all()
+    noti = notification.objects.all()
+    for lookup in msg:
+        if lookup.Status is False:
+            msgcount = msgcount+1
+
+    for lookup in noti:
+        if lookup.Status is False:
+            noticount = noticount+1
     allMessage = contactus.objects.all()
     context = {"message":allMessage,
                 "newMessage":msgcount,
                 "newNotification":noticount,
                 }
     return render(request,"home.html",context)
-
+@login_required
 def message_detail(request, pk):
+    msgcount = 0
+    noticount = 0
+    msg = contactus.objects.all()
+    noti = notification.objects.all()
+    for lookup in msg:
+        if lookup.Status is False:
+            msgcount = msgcount+1
+
+    for lookup in noti:
+        if lookup.Status is False:
+            noticount = noticount+1
     message = contactus.objects.get(id=pk)
     message.Status=True
     # message.publish_date = timezone.now
@@ -157,7 +200,7 @@ def contact_view(request):
 def about_view(request):
 
     return render(request,"about.html",{})
-
+@login_required
 def search_view(request):
     query = request.GET.get('q', None)
     user = None
